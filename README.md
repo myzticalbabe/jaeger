@@ -5,6 +5,18 @@ verdict (`accepted` / `rejected` / `unverified`), judge, duration,
 violations — appended to a JSONL ledger so *was this the right call*
 is answerable after the process exits. Stdlib only, no services.
 
+## Install
+
+```bash
+# the built wheel, attached to the release (no index needed)
+pip install https://github.com/myzticalbabe/jaeger/releases/download/v0.1.0/krampus_jaeger-0.1.0-py3-none-any.whl
+
+# or straight from the repository
+pip install "krampus-jaeger @ git+https://github.com/myzticalbabe/jaeger.git@v0.1.0"
+```
+
+Stdlib only, Python 3.13+.
+
 ```python
 from krampus_jaeger import SpanStore, timed
 
