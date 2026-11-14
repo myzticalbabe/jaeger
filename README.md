@@ -1,35 +1,70 @@
-# krampus-jaeger
+# jaeger
 
-Durable spans for routed delegations. One span per call — capability,
-verdict (`accepted` / `rejected` / `unverified`), judge, duration,
-violations — appended to a JSONL ledger so *was this the right call*
-is answerable after the process exits. Stdlib only, no services.
+Jaeger — durable spans for routed delegations: one written record per call, JSONL ledger, stdlib only.
 
-## Install
+[![CI](https://github.com/myzticalbabe/jaeger/actions/workflows/ci.yml/badge.svg)](https://github.com/myzticalbabe/jaeger/actions/workflows/ci.yml)
+[![Pages Deploy](https://github.com/myzticalbabe/jaeger/actions/workflows/pages-deploy.yml/badge.svg)](https://github.com/myzticalbabe/jaeger/actions/workflows/pages-deploy.yml)
+[![License: SOUL FORGE](https://img.shields.io/badge/License-SOUL_FORGE-violet.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/v/release/myzticalbabe/jaeger)](https://github.com/myzticalbabe/jaeger/releases)
+[![GitHub stars](https://img.shields.io/github/stars/myzticalbabe/jaeger?style=social)](https://github.com/myzticalbabe/jaeger/stargazers)
+
+---
+
+## Overview
+
+Distributed tracing with durable JSONL ledger.
+
+## Installation
 
 ```bash
-# the built wheel, attached to the release (no index needed)
-pip install https://github.com/myzticalbabe/jaeger/releases/download/v0.1.0/krampus_jaeger-0.1.0-py3-none-any.whl
-
-# or straight from the repository
-pip install "krampus-jaeger @ git+https://github.com/myzticalbabe/jaeger.git@v0.1.0"
+pip install -e .
 ```
 
-Stdlib only, Python 3.13+.
+## Usage
 
-```python
-from krampus_jaeger import SpanStore, timed
+python -m jaeger --help
 
-store = SpanStore("spans.jsonl")
+## Architecture
 
-with timed(store, "madi.fetch", judged_by="krampus") as span:
-    page = fetch(url)
-    span["verdict"] = "accepted" if page["state"] == "ok" else "rejected"
+See [Domain Atlas](https://myzticalbabe.github.io) for interactive visualization.
 
-print(store.stats())
-# {'total': 1, 'by_verdict': {...}, 'by_capability': {...},
-#  'mean_duration_ms': ...}
-```
+## License
 
-Malformed spans are refused with the offending field named; exceptions
-inside `timed` record a `rejected` span naming the error, then propagate.
+This project is licensed under the **SOUL FORGE License v1.0** — see [LICENSE](LICENSE) for details.
+
+> *"Code is crystallized intention. Tend the fire."*
+
+## Related Repositories
+
+| Repo | Description |
+|------|-------------|
+| [azazael](https://github.com/myzticalbabe/azazael) | Monorepo: worm registry, cluster system, agent harness |
+| [EveUnleashed](https://github.com/myzticalbabe/EveUnleashed) | Gamora, Lucy, Jaeger, Berzerker AIO native on 3.16t |
+| [eliza](https://github.com/myzticalbabe/eliza) | Companion runtime: shards, adopted trees |
+| [codex-video-engine](https://github.com/myzticalbabe/codex-video-engine) | CODEX Studio desktop app + video engine |
+| [ecosystem-orchestrator](https://github.com/myzticalbabe/ecosystem-orchestrator) | ML platform install/orchestration |
+| [scribe](https://github.com/myzticalbabe/scribe) | Documentation generation |
+| [persephone-sync](https://github.com/myzticalbabe/persephone-sync) | Cross-platform env sync |
+| [hydra-mlcluster](https://github.com/myzticalbabe/hydra-mlcluster) | Adaptive ML cluster processing |
+| [flaming-sword](https://github.com/myzticalbabe/flaming-sword) | Defensive instrument: sentinel, compliance, formal verification |
+| [shardex](https://github.com/myzticalbabe/shardex) | Shard execution engine |
+| [krampus](https://github.com/myzticalbabe/krampus) | Composition: MellifluousML, Madi, Gamora, Eve, Lilith |
+| [azazael-core](https://github.com/myzticalbabe/azazael-core) | Installable, interpreter-agnostic repackaging |
+| [grantforge](https://github.com/myzticalbabe/grantforge) | AI-native grant tooling |
+| [madi](https://github.com/myzticalbabe/madi) | Browsing instrument: fetch, challenge taxonomy, scorer |
+| [jaeger](https://github.com/myzticalbabe/jaeger) | Durable spans, JSONL ledger, stdlib only |
+| [cradle](https://github.com/myzticalbabe/cradle) | Composition over FLAMING SWORD, REAPER, GRIMOIRE |
+| [esquire-admissibility](https://github.com/myzticalbabe/esquire-admissibility) | AI-evidence admissibility gates |
+| [nurse-ratchet](https://github.com/myzticalbabe/nurse-ratchet) | Behavioural package: person state modelled |
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Links
+
+- **Monorepo**: https://github.com/myzticalbabe/azazael
+- **Landing Hub**: https://myzticalbabe.github.io
+- **Domain Atlas**: https://myzticalbabe.github.io/index.html
+- **Issues**: https://github.com/myzticalbabe/jaeger/issues
+- **Discussions**: https://github.com/myzticalbabe/jaeger/discussions
