@@ -3,3 +3,32 @@ __pycache__/
 dist/
 *.egg-info/
 .pytest_cache/
+
+# Build output
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+
+# Local secrets and environment overrides
+.env
+.env.local
+.env.*.local
+
+# Tooling caches
+.mypy_cache/
+.pyre/
+.ruff_cache/
+.tox/
+.coverage
+htmlcov/
+
+# Editor and OS droppings
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

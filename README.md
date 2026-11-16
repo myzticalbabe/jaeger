@@ -14,15 +14,72 @@ Jaeger — durable spans for routed delegations: one written record per call, JS
 
 Distributed tracing with durable JSONL ledger.
 
+Each span records one delegated call: which capability ran, the verdict
+(`accepted`, `rejected` or `unverified`), who judged it, how long it took, and
+which contract violations fired. Spans are appended to a JSONL ledger on disk, so
+the answer to *was this the right call* outlives the process that made it.
+
+The ledger is plain JSONL — one JSON object per line, append-only, readable with
+any text editor.
+
+## Who it is for
+
+- **Developers of multi-step pipelines** — agent or service pipelines — who need
+  to record what each step did, who judged it and why.
+- **Researchers, educators and students** who want a trace they can read back with
+  nothing but the standard library: no collector to run, no dashboard, no account.
+- **Anyone auditing a past run.** The ledger is a plain file, so it can be copied,
+  diffed or read with `jq`.
+
+Jaeger is a library. It is standard-library-only, has no runtime dependencies, and
+has no daemon to run and no command-line interface.
+
 ## Installation
+
+Requires **Python 3.13 or newer** (see `requires-python` in `pyproject.toml`).
 
 ```bash
 pip install -e .
 ```
 
+For the test suite as well:
+
+```bash
+pip install -e ".[test]"
+```
+
 ## Usage
 
-python -m jaeger --help
+There is no command-line interface; use the library:
+
+```python
+from krampus_jaeger import SpanStore, timed
+
+store = SpanStore("spans.jsonl")
+
+with timed(store, "madi.fetch", judged_by="krampus") as span:
+    ...                       # do the work
+    span["verdict"] = "accepted"
+
+# Every span is on disk now, one JSON object per line.
+for span in store.query(verdict="accepted"):
+    print(span["capability"], span["detail"])
+```
+
+`build_span(...)` builds a span by hand when `timed` does not fit.
+`SpanStore.query(...)` filters by capability, verdict and time; `stats()` returns
+counts by verdict and capability plus the mean duration.
+
+## Running the tests
+
+```bash
+pip install -e ".[test]"
+python -m pytest tests/ -v --tb=short
+```
+
+The suite is fully offline — every test writes to a temporary ledger file, so no
+network, service or credentials are involved. The same command runs in CI
+(`.github/workflows/ci.yml`), which reports the `ci` status check.
 
 ## Architecture
 
@@ -67,4 +124,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 - **Landing Hub**: https://myzticalbabe.github.io
 - **Domain Atlas**: https://myzticalbabe.github.io/index.html
 - **Issues**: https://github.com/myzticalbabe/jaeger/issues
-- **Discussions**: https://github.com/myzticalbabe/jaeger/discussions
