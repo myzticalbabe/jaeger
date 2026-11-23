@@ -1,0 +1,42 @@
+{
+  "name": "jaeger",
+  "version": "1.0.0",
+  "description": "jaeger repository",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/myzticalbabe/jaeger.git"
+  },
+  "homepage": "https://github.com/myzticalbabe/jaeger",
+  "bugs": {
+    "url": "https://github.com/myzticalbabe/jaeger/issues"
+  },
+  "license": "MIT",
+  "author": "jaeger Contributors",
+  "maintainers": [
+    {
+      "name": "myzticalbabe",
+      "email": "maintainers@myzticalbabe.com",
+      "web": "https://github.com/myzticalbabe"
+    }
+  ],
+  "keywords": [
+    "stem",
+    "education",
+    "open-source"
+  ],
+  "categories": [
+    "education",
+    "stem"
+  ],
+  "support": {
+    "documentation": "https://github.com/myzticalbabe/jaeger/wiki",
+    "discussions": "https://github.com/myzticalbabe/jaeger/discussions",
+    "security": "https://github.com/myzticalbabe/jaeger/security/advisories"
+  },
+  "governance": {
+    "code_of_conduct": "CODE_OF_CONDUCT.md",
+    "contributing": "CONTRIBUTING.md",
+    "security_policy": "SECURITY.md",
+    "disclosure_policy": "DISCLOSURE_POLICY.md"
+  }
+}
